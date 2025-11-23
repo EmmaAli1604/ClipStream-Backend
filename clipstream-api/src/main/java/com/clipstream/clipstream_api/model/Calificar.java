@@ -1,17 +1,13 @@
 package com.clipstream.clipstream_api.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@IdClass(CalificarId.class)
 @Table(name = "Calificar")
+@IdClass(CalificarId.class)
 public class Calificar {
     @Id
-    @Column(name = "Cortometrajeid")
+    @Column(name = "CortometrajeID")
     private Long cortometrajeId;
 
     @Id

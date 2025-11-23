@@ -13,6 +13,7 @@ public class Cortometraje {
     //@Id
     //@Column(name = "CortometrajeID")
     @Id 
+    @Column(name = "CortometrajeID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cortometrajeId;
 

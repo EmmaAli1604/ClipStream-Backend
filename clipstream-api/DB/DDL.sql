@@ -28,28 +28,32 @@ CREATE TABLE Genero (
     NombreGenero VARCHAR(80)
 ); 
 
+
+DROP TABLE IF EXISTS Resena CASCADE;
+
 -- Tabla para almacenar un cortometraje
 CREATE TABLE Cortometraje (
-	CortometrajeID BIGINT,
+	CortometrajeID BIGSERIAL,
 	UsuarioID BIGINT,
 	GeneroID BIGINT,
 	Nombre varchar(80),
 	Sinopsis varchar(500),
 	Fecha DATE,
-	Foto varchar(100),
-	Video varchar(100),
+	Foto varchar(800),
+	Video varchar(800),
 	Director varchar(80),
-	NumVistas INT,
-	Calificacion NUMERIC
+	NumVistas INT DEFAULT 0,
+	Calificacion numeric DEFAULT 0
 );
 
 -- Tabla para las reseñas/comentarios de los cortometrajes.
 create table Resena (
-	ResenaID BIGINT,
+	ResenaID BIGSERIAL,
 	UsuarioID BIGINT,
 	CortometrajeID BIGINT,
 	Contenido VARCHAR(200),
-	Likes BIGINT
+	Likes BIGINT DEFAULT 0,
+	FechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabla para relacionar la calificacion que le da un usuario a un cortometraje
@@ -58,9 +62,6 @@ CREATE TABLE Calificar (
     UsuarioID BIGINT,
     Puntuacion NUMERIC
 );
-
-
-
 
 ---- RESTRICCIONES ----
 
@@ -114,7 +115,7 @@ AlTER table Resena add constraint pk_resena primary key (ResenaID);
 ALTER TABLE Cortometraje ADD CONSTRAINT fk_cortometraje_usuario FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
     ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Cortometraje ADD CONSTRAINT fk_generoid FOREIGN KEY (GeneroID) REFERENCES Genero(GeneroID)
-    ON DELETE CASCADE ON UPDATE CASCADE; -- no se si esta funcionó
+    ON DELETE CASCADE ON UPDATE CASCADE; 
 
 -- LLAVES FORÁENAS USUARIO
 ALTER TABLE Usuario ADD CONSTRAINT fk_usuario_rol FOREIGN KEY (RolID) REFERENCES Rol(RolID)
@@ -193,3 +194,13 @@ FOR EACH ROW EXECUTE FUNCTION actualizar_promedio_calificacion();
 INSERT INTO Rol (RolID, Nombre) VALUES (1, 'User');
 INSERT INTO Rol (RolID, Nombre) VALUES (2, 'Admin');
 
+
+-- Géneros de películas (acción, aventura, comedia, drama, terror, ciencia ficción, fantasía, romance)
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (1, 'Drama');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (2, 'Acción');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (3, 'Aventura');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (4, 'Comedia');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (5, 'Terror');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (6, 'Ciencia ficción');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (7, 'Fantasía');
+INSERT INTO Genero (GeneroID, NombreGenero) VALUES (8, 'Romance');
