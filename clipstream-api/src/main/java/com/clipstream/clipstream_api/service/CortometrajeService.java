@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,4 +102,13 @@ public class CortometrajeService {
             cortometrajeRepository.save(cortometraje);
         });
     }
+
+
+    // Obtener cortometrajes mejor calificados
+public List<Cortometraje> obtenerMejorCalificados() {
+    return cortometrajeRepository.findAll().stream()
+            .sorted((c1, c2) -> c2.getCalificacion().compareTo(c1.getCalificacion()))
+            .limit(10)
+            .toList();
+}
 }

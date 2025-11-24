@@ -131,4 +131,19 @@ public class CortometrajeController {
         cortometrajeService.incrementarVistas(id);
         return ResponseEntity.ok(new CortometrajeResponse(true, "Vistas incrementadas"));
     }
+
+
+    // GET - Obtener cortometrajes mejor calificados
+@GetMapping("/mejor-calificados")
+public ResponseEntity<CortometrajeResponse> obtenerMejorCalificados() {
+    List<Cortometraje> cortometrajes = cortometrajeService.obtenerMejorCalificados();
+    return ResponseEntity.ok(new CortometrajeResponse(true, "Cortometrajes mejor calificados obtenidos", cortometrajes));
+}
+
+// GET - Obtener cortometrajes recién agregados
+@GetMapping("/recientes")
+public ResponseEntity<CortometrajeResponse> obtenerRecientes() {
+    List<Cortometraje> cortometrajes = cortometrajeService.obtenerTodosLosCortometrajes();
+    return ResponseEntity.ok(new CortometrajeResponse(true, "Cortometrajes recientes obtenidos", cortometrajes));
+}
 }
